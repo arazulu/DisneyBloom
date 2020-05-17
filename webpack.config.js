@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
     //entry point of our app
-    entry: './src/index.js',
+    entry: './src/index.tsx',
     mode: process.env.NODE_ENV,
     output: {
         path: path.resolve(__dirname, 'build'),
@@ -19,10 +19,18 @@ module.exports = {
             }
         }
     },
+    resolve: {
+        extensions: ['.ts', '.tsx', '.js', '.jsx']
+    },
     module: {
         rules: [
             {
-                test: /\.(js|jsx)$/,
+                test: /\.tsx?$/,
+                exclude: /node_modules/,
+                loader: 'awesome-typescript-loader'
+            },
+            {
+                test: /\.(js|jsx)?$/,
                 exclude: /node_modules/,
                 use: ['babel-loader', 'eslint-loader']
             },
