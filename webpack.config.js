@@ -3,13 +3,21 @@ const path = require('path');
 module.exports = {
     //entry point of our app
     entry: './src/index.js',
+    mode: process.env.NODE_ENV,
     output: {
         path: path.resolve(__dirname, 'build'),
-        publicPath: '/',
         filename: 'bundle.js'
     },
     devServer: {
-        contentBase: './dist'
+        publicPath: '/',
+        port: 8080,
+        proxy: {
+            '/': {
+                target: 'http://localhost:3000/',
+                contentBase: './src',
+                secure: false
+            }
+        }
     },
     module: {
         rules: [
